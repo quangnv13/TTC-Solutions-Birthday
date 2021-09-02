@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TTC Solutions Birthday</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="index.css" />
+    <script src="/jquery/dist/jquery.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid h-100 d-flex align-items-center recevied-gift">
+      <div id="getting-gift" class="w-100 row justify-content-center">
+        <div
+          class="
+            col-6 col-sm-4 col-md-3 col-lg-2
+            d-flex
+            flex-column
+            align-items-center
+            mt-5
+          "
+        >
+          <img
+            class="w-100 mt-5"
+            src="./assets/images/loader.gif"
+            alt="TTC Solutions"
+          />
+          <div id="spinner" class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-header">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-primary" id="exampleModalLabel">
+              Nhập mã nhân viên của bạn để nhận quà từ TTC
+            </h5>
+          </div>
+          <div class="modal-body">
+            <div class="form-group g-3 needs-validation" novalidate>
+              <label class="form-label">Mã nhân viên</label>
+              <input
+                class="form-control upper-case"
+                placeholder="Nhập mã nhân viên"
+                id="employee-code"
+                oninput="inputEmployeeCode(this)"
+                maxlength="7"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="getGift()">
+              Nhận quà
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="resultModal"
+      tabindex="-1"
+      aria-labelledby="resultModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-primary" id="resultModalLabel">
+              Chúc mừng bạn đã nhận quà thành công
+            </h5>
+          </div>
+          <div class="modal-body">
+            <img id="img-result" class="img-fluid" alt="Quà tặng" />
+            <h5>Ban tổ chức sẽ trao quà trong thời gian sớm nhất</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="errorModal"
+      tabindex="-1"
+      aria-labelledby="errorModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="errorModalLabel"></h5>
+          </div>
+          <div class="modal-body d-flex justify-content-center">
+            <img class="img-fluid" src="assets/images/oops.jpg" alt="Oops" />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="tryAgainGetGift()"
+            >
+              Thử lại
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/jquery/dist/jquery.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/axios/dist/axios.min.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
