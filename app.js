@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const app = express();
 const db = require("./database/db");
@@ -77,7 +79,7 @@ app.get("/get-total", (req, res) => {
 });
 
 app
-  .listen(3000)
+  .listen(process.env.PORT || 3000)
   .on("listening", () => console.log("Server is started on port 3000"));
 
 function generateRandomNumbers(min, max) {
