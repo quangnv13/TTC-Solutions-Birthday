@@ -103,3 +103,7 @@ img {
     transform: translate(24px, 0);
   }
 }
+
+.happy-label {
+  font-weight: 500;
+}

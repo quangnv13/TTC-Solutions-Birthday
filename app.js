@@ -9,6 +9,8 @@ app.use(express.static(`${__dirname}/frontend`));
 
 const winsData = db.get("wins");
 const vouchersData = db.get("vouchers");
+const employeesData = db.get("employees").value();
+
 let voucher50Qty = vouchersData.find({ code: "voucher-50" }).value().quantity;
 let voucher100Qty = vouchersData.find({ code: "voucher-100" }).value().quantity;
 let voucher300Qty = vouchersData.find({ code: "voucher-300" }).value().quantity;
@@ -19,16 +21,19 @@ let voucher2000Qty = vouchersData
 
 app.get("/get-gift", (req, res) => {
   const employeeCode = req.query.employeeCode.toUpperCase();
-  try {
-    if (employeeCode) {
-      const checkEmployee = winsData.some({ employeeCode }).value();
-      if (checkEmployee) {
-        return res.status(400).json({
-          message:
-            "Mã nhân viên này đã tham gia chương trình! Vui lòng kiểm tra lại",
-        });
-      }
-      const giftCodeRandom = getGiftCode();
+  const checkEmployeeExist = employeesData.find(
+    (e) => e.employeeCode === employeeCode
+  );
+  if (employeeCode && checkEmployeeExist) {
+    const checkEmployee = winsData.some({ employeeCode }).value();
+    if (checkEmployee) {
+      return res.status(400).json({
+        message:
+          "Mã nhân viên này đã tham gia chương trình! Vui lòng kiểm tra lại",
+      });
+    }
+    const giftCodeRandom = getGiftCode();
+    try {
       winsData
         .push({
           employeeCode,
@@ -37,16 +42,17 @@ app.get("/get-gift", (req, res) => {
         .write();
       return res.json({
         giftCode: giftCodeRandom,
+        employeeName: checkEmployeeExist.name,
+      });
+    } catch (err) {
+      return res.status(500).send({
+        message: JSON.stringify(err),
       });
     }
-    return res.status(400).json({
-      message: "Mã nhân viên không hợp lệ! Vui lòng kiểm tra lại",
-    });
-  } catch (err) {
-    return res.status(500).send({
-      message: JSON.stringify(err),
-    });
   }
+  return res.status(400).json({
+    message: "Mã nhân viên không hợp lệ! Vui lòng kiểm tra lại",
+  });
 });
 
 app.get("/get-total", (req, res) => {

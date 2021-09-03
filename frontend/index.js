@@ -23,6 +23,7 @@ const gettingGiftElement = document.getElementById("getting-gift");
 const imgResult = document.getElementById("img-result");
 const errorModalLabel = document.getElementById("errorModalLabel");
 const spinnerElement = document.getElementById("spinner");
+const resultNameElement = document.getElementById("result-name");
 spinnerElement.classList.add("hidden");
 gettingGiftElement.classList.add("hidden");
 
@@ -54,6 +55,7 @@ function getGift() {
           imgResult.src = "assets/images/good-luck.gif";
         } else {
           imgResult.src = `assets/images/${res.data.giftCode}.jpg`;
+          resultNameElement.textContent = res.data.employeeName;
         }
       })
       .catch((ex) => {
